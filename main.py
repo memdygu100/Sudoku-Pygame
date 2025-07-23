@@ -15,7 +15,7 @@ quantidade = 3
 posicao_x = [150, 420, 690]
 posicao_y = [240, 510, 780]
 
-
+pressionado = False
 
 
 
@@ -88,7 +88,8 @@ while loop:
             x += 1
         y += 1
 
-
+    if  events.type == pygame.MOUSEBUTTONDOWN:
+        print(pygame.mouse.get_pos())
 
 
 
