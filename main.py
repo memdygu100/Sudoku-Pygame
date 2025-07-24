@@ -32,24 +32,24 @@ while loop:
 
 
 
-    imagem_fundo = pygame.image.load("C:/Users/diego/OneDrive/Área de Trabalho/-/Pygame/Sudoku-Pygame/Assets/Tabuleiro.png")
-    numero_1 = pygame.image.load("C:/Users/diego/OneDrive/Área de Trabalho/-/Pygame/Sudoku-Pygame/Assets/Numero_1-Photoroom.jpg")
+    imagem_fundo = pygame.image.load("Assets/Tabuleiro.png")
+    numero_1 = pygame.image.load("Assets/Numero_1-Photoroom.jpg")
     numero_1 = pygame.transform.scale(numero_1, (55, 55))
-    numero_2 = pygame.image.load("C:/Users/diego/OneDrive/Área de Trabalho/-/Pygame/Sudoku-Pygame/Assets/Numero_2-Photoroom.jpg")
+    numero_2 = pygame.image.load("Assets/Numero_2-Photoroom.jpg")
     numero_2 = pygame.transform.scale(numero_2, (55, 55))
-    numero_3 = pygame.image.load("C:/Users/diego/OneDrive/Área de Trabalho/-/Pygame/Sudoku-Pygame/Assets/Numero_3-Photoroom.jpg")
+    numero_3 = pygame.image.load("Assets/Numero_3-Photoroom.jpg")
     numero_3 = pygame.transform.scale(numero_3, (55, 55))
-    numero_4 = pygame.image.load("C:/Users/diego/OneDrive/Área de Trabalho/-/Pygame/Sudoku-Pygame/Assets/Numero_4-Photoroom.jpg")
+    numero_4 = pygame.image.load("Assets/Numero_4-Photoroom.jpg")
     numero_4 = pygame.transform.scale(numero_4, (55, 55))
-    numero_5 = pygame.image.load("C:/Users/diego/OneDrive/Área de Trabalho/-/Pygame/Sudoku-Pygame/Assets/Numero_5-Photoroom.jpg")
+    numero_5 = pygame.image.load("Assets/Numero_5-Photoroom.jpg")
     numero_5 = pygame.transform.scale(numero_5, (55, 55))
-    numero_6 = pygame.image.load("C:/Users/diego/OneDrive/Área de Trabalho/-/Pygame/Sudoku-Pygame/Assets/Numero_6-Photoroom.jpg")
+    numero_6 = pygame.image.load("Assets/Numero_6-Photoroom.jpg")
     numero_6 = pygame.transform.scale(numero_6, (55, 55))
-    numero_7 = pygame.image.load("C:/Users/diego/OneDrive/Área de Trabalho/-/Pygame/Sudoku-Pygame/Assets/Numero_7-Photoroom.jpg")
+    numero_7 = pygame.image.load("Assets/Numero_7-Photoroom.jpg")
     numero_7 = pygame.transform.scale(numero_7, (55, 55))
-    numero_8 = pygame.image.load("C:/Users/diego/OneDrive/Área de Trabalho/-/Pygame/Sudoku-Pygame/Assets/Numero_8-Photoroom.jpg")
+    numero_8 = pygame.image.load("Assets/Numero_8-Photoroom.jpg")
     numero_8 = pygame.transform.scale(numero_8, (55, 55))
-    numero_9 = pygame.image.load("C:/Users/diego/OneDrive/Área de Trabalho/-/Pygame/Sudoku-Pygame/Assets/Numero_9-Photoroom.jpg")
+    numero_9 = pygame.image.load("Assets/Numero_9-Photoroom.jpg")
     numero_9 = pygame.transform.scale(numero_9, (55, 55))
 
     janela.blit(imagem_fundo, (0, 0))
@@ -90,6 +90,7 @@ while loop:
 
     if  events.type == pygame.MOUSEBUTTONDOWN:
         print(pygame.mouse.get_pos())
+
 
 
 
