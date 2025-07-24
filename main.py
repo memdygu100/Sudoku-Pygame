@@ -10,10 +10,6 @@ pos_x_player = 430
 pos_y_player = 400
 vel_nave_player = 10
 
-quantidade = 3
-
-posicao_x = [150, 420, 690]
-posicao_y = [240, 510, 780]
 
 pressionado = False
 
@@ -26,7 +22,12 @@ while loop:
     for events in pygame.event.get():
         if events.type == pygame.QUIT:
             loop = False
-
+        if pressionado:
+            if (posicao_click_x > 140 and posicao_click_y > 230) and (posicao_click_x < 210 and posicao_click_y < 300):
+                if events.type == pygame.KEYDOWN:
+                    if events.key == pygame.K_1:
+                        Matrizes.Sudoku_playground[0][0] = 1
+                        pressionado = False
     teclas = pygame.key.get_pressed()
 
 
@@ -89,7 +90,14 @@ while loop:
         y += 1
 
     if  events.type == pygame.MOUSEBUTTONDOWN:
-        print(pygame.mouse.get_pos())
+        posicao_click_x, posicao_click_y = pygame.mouse.get_pos()
+        pressionado = True
+        print(posicao_click_x, posicao_click_y)
+
+
+
+
+
 
 
 
@@ -103,5 +111,3 @@ while loop:
 
 
     pygame.display.update()
-
-    #230, 250 -> 215, 240
