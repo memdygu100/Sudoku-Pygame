@@ -24,3 +24,13 @@
 
 # janela.blit(nave_player, (pos_x_player, pos_y_player))
 # print(pos_x_player, pos_y_player)
+# lista = [1, 2, 3, ]
+# print (lista.count(1))
+# matriz1 = [[1, 2], [3, 4]]
+# matriz2 = [[5, 6], [7, 8]]
+# matriz3 = [[9, 10], [11, 12]]
+# matrizes = [matriz1, matriz2, matriz3]
+# for i in range(2):
+#     matriz_analizada = matrizes[i]
+#     matriz_analizada_listada = matriz_analizada[i]
+#     print(matriz_analizada_listada)

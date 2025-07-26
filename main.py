@@ -42,6 +42,11 @@ while loop:
                 elif events.key == pygame.K_0:
                     Matrizes.Sudoku_playground[linha_selecionada][coluna_selecionada] = 0
                     precisa_redesenhar = True
+                elif events.key == pygame.K_RETURN:
+                    if Matrizes.verificacao():
+                        print("Sudoku Resolvido")
+                    else:
+                        print("Sudoku Incompleto")
     teclas = pygame.key.get_pressed()
 
 
@@ -78,11 +83,6 @@ while loop:
         8: numero_8,
         9: numero_9
     }
-
-
-
-
-
     if precisa_redesenhar:
         for i, linha in enumerate(Matrizes.Sudoku_playground):
             for j, valor in enumerate(linha):
