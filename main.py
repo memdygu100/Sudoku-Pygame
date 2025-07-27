@@ -1,5 +1,6 @@
 import pygame
 import Matrizes
+import time
 pygame.init()
 clock = pygame.time.Clock()
 pygame.display.set_caption('Sudoku')
@@ -7,18 +8,31 @@ pygame.display.set_caption('Sudoku')
 x, y = 850, 850
 janela = pygame.display.set_mode([x, y])
 
+text_color = (1, 1, 1)
+font = pygame.font.SysFont("Arial", 30)
+text = "Este número não pode ser alterado"
+text_surface = font.render(text, True, text_color)
+text_rect = text_surface.get_rect()
+text_rect.center = (434, 200)
+
+text_2 = 'Resposta Incorreta'
+text_2_surface = font.render(text_2, True, text_color)
+text_2_rect = text_2_surface.get_rect()
+text_2_rect.center = (465, 200)
+
+
 pos_x_player = 430
 pos_y_player = 400
 vel_nave_player = 10
 
+sudoku_correto = None
 
 pressionado = False
 
-precisa_redesenhar = True
+precisa_redesenhar = False
 
 linha_selecionada = None
 coluna_selecionada = None
-
 
 
 loop = True
@@ -35,18 +49,22 @@ while loop:
                 precisa_redesenhar = True
         elif events.type == pygame.KEYDOWN:
             if linha_selecionada is not None and coluna_selecionada is not None:
-                if pygame.K_1 <= events.key <= pygame.K_9:
-                    valor = events.key - pygame.K_0
-                    Matrizes.Sudoku_playground[linha_selecionada][coluna_selecionada] = valor
-                    precisa_redesenhar = True
-                elif events.key == pygame.K_0:
-                    Matrizes.Sudoku_playground[linha_selecionada][coluna_selecionada] = 0
-                    precisa_redesenhar = True
-                elif events.key == pygame.K_RETURN:
-                    if Matrizes.verificacao():
-                        print("Sudoku Resolvido")
-                    else:
-                        print("Sudoku Incompleto")
+                if Matrizes.Sudoku_playground[linha_selecionada][coluna_selecionada] != Matrizes.numeros_bloqueados[linha_selecionada][coluna_selecionada]:
+                    if pygame.K_1 <= events.key <= pygame.K_9:
+                        valor = events.key - pygame.K_0
+                        Matrizes.Sudoku_playground[linha_selecionada][coluna_selecionada] = valor
+                        precisa_redesenhar = True
+                    elif events.key == pygame.K_0:
+                        Matrizes.Sudoku_playground[linha_selecionada][coluna_selecionada] = 0
+                        precisa_redesenhar = True
+            if events.key == pygame.K_RETURN:
+                if Matrizes.verificacao():
+                    print("Sudoku Resolvido")
+                    sudoku_correto = True
+                else:
+                    print("Sudoku Incompleto")
+                    sudoku_correto = False
+                precisa_redesenhar = True
     teclas = pygame.key.get_pressed()
 
 
@@ -88,9 +106,13 @@ while loop:
             for j, valor in enumerate(linha):
                 if valor in numero_imagens:
                     janela.blit(numero_imagens[valor], (Matrizes.posicoes_x[j], Matrizes.posicoes_y[i]))
-
-        pygame.display.update()  # Atualiza a tela
-        precisa_redesenhar = False  # Reseta a flag
+        if Matrizes.Sudoku_playground[linha_selecionada][coluna_selecionada] == Matrizes.numeros_bloqueados[linha_selecionada][coluna_selecionada]:
+            janela.blit(text_surface, text_rect)
+        elif sudoku_correto is False:
+            janela.blit(text_2_surface, text_2_rect)
+            sudoku_correto = None
+        pygame.display.update()
+        precisa_redesenhar = False
 
 
 

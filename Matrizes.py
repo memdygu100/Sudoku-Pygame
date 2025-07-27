@@ -53,7 +53,13 @@ for quad_linha in range(0, 9, 3):
         for i, j in posicoes[:numeros_removidos]:
             Sudoku_playground[i][j] = 0
 
+#FIM DA CRIAÇÃO DO SUDOKU
 
+numeros_bloqueados = [["." for _ in range(9)] for _ in range(9)]
+for a in range(len(numeros_bloqueados)):
+    for b in range(len(numeros_bloqueados)):
+        if Sudoku_playground[a][b] != 0:
+            numeros_bloqueados[a][b] = Sudoku_playground[a][b]
 
 def verifica_submatriz_unica(submatriz):
     numeros = [num for linha in submatriz for num in linha if num != 0]
