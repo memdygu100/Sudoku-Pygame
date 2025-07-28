@@ -316,6 +316,6 @@ while loop:
                     apagar_matriz = True
             pygame.display.update()
 
-
+# teste
     clock.tick(60)
 
