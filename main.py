@@ -119,7 +119,8 @@ botao_fundo_menu = pygame.image.load("Assets/Janela Fundo Vitoria.jpg")
 botao_fundo_menu = pygame.transform.scale(janela_fundo_vitoria, (300, 75))
 quadrado_menu = pygame.image.load("Assets/Janela Fundo Vitoria.jpg")
 quadrado_menu = pygame.transform.scale(janela_fundo_vitoria, (600, 150))
-
+quadrado_selecao = pygame.image.load("Assets/TIRAR _FUNDO 2-Photoroom.png")
+quadrado_selecao = pygame.transform.scale(quadrado_selecao, (93, 97))
 
 Sudoku_playground = [[0 for _ in range(9)] for _ in range(9)]
 
@@ -219,6 +220,7 @@ while loop:
                         linha_selecionada = (posicao_click_y - 230) // 70
                         print(f"Célula clicada: [{linha_selecionada}][{coluna_selecionada}]")
                         precisa_redesenhar = True
+                        pressionado = True
                 elif events.type == pygame.KEYDOWN:
                     if linha_selecionada is not None and coluna_selecionada is not None:
                         if Sudoku_playground[linha_selecionada][coluna_selecionada] != numeros_bloqueados[linha_selecionada][coluna_selecionada]:
@@ -279,9 +281,12 @@ while loop:
                     text_time_rect.center = (posicao_x + 220, posicao_y + 110)
                     janela.blit(text_time_surface, text_time_rect)
                     jogo_finalizado = True
+                if pressionado:
+                    janela.blit(quadrado_selecao, (Matrizes.posicoes_x[coluna_selecionada] - 15, Matrizes.posicoes_y[linha_selecionada] - 19))
+
                 pygame.display.update()
                 precisa_redesenhar = False
-
+                pressionado = False
         else:
             menu = pygame.display.set_mode((x, y))
             janela.blit(botao_fundo_menu,(275, 400))
