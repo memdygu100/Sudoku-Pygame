@@ -37,6 +37,7 @@ coluna_selecionada = None
 
 loop = True
 while loop:
+    print(pygame.mouse.get_pos())
     for events in pygame.event.get():
         if events.type == pygame.QUIT:
             loop = False
@@ -47,6 +48,7 @@ while loop:
                 linha_selecionada = (posicao_click_y - 230) // 70
                 print(f"Célula clicada: [{linha_selecionada}][{coluna_selecionada}]")
                 precisa_redesenhar = True
+                pressionado = True
         elif events.type == pygame.KEYDOWN:
             if linha_selecionada is not None and coluna_selecionada is not None:
                 if Matrizes.Sudoku_playground[linha_selecionada][coluna_selecionada] != Matrizes.numeros_bloqueados[linha_selecionada][coluna_selecionada]:
@@ -87,6 +89,10 @@ while loop:
     numero_8 = pygame.transform.scale(numero_8, (55, 55))
     numero_9 = pygame.image.load("Assets/Numero_9-Photoroom.jpg")
     numero_9 = pygame.transform.scale(numero_9, (55, 55))
+    quadrado_selecao = pygame.image.load("c:/Users/LENOVO/Downloads/TIRAR _FUNDO 2-Photoroom.png")
+    quadrado_selecao = pygame.transform.scale(quadrado_selecao, (94,97))
+
+
 
     janela.blit(imagem_fundo, (0, 0))
 
@@ -111,8 +117,13 @@ while loop:
         elif sudoku_correto is False:
             janela.blit(text_2_surface, text_2_rect)
             sudoku_correto = None
+        
+
+        if  pressionado:
+            janela. blit(quadrado_selecao, (Matrizes.posicoes_x[coluna_selecionada] - 15, Matrizes.posicoes_y[linha_selecionada] - 19))
         pygame.display.update()
         precisa_redesenhar = False
+        pressionado = False
 
 
 
