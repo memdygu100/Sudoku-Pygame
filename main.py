@@ -21,7 +21,7 @@ posicao_y = (y - altura_janela_vitoria) // 2
 
 
 text_color = (0, 0, 0)
-font = pygame.font.SysFont("Arial", 30)
+font = pygame.font.Font("Fonts/PressStart2P-Regular.ttf", 25)
 text = "Este número não pode ser alterado"
 text_surface = font.render(text, True, text_color)
 text_rect = text_surface.get_rect()
@@ -33,17 +33,19 @@ text_2_rect = text_2_surface.get_rect()
 text_2_rect.center = (465, 200)
 
 text_vitoria_color = (0, 0, 0)
-font_text_vitoria = pygame.font.SysFont("Arial", 25)
-text_vitoria = "Parabéns, você completou o sudoku em: "
-text_vitoria_surface = font_text_vitoria.render(text_vitoria, True, text_vitoria_color)
-text_vitoria_rect = text_vitoria_surface.get_rect()
-text_vitoria_rect.center = (posicao_x + 220, posicao_y + 30)
+font_text_vitoria = pygame.font.Font("Fonts/PressStart2P-Regular.ttf", 25)
+linha1 = "Parabéns,"
+linha2 = "você completou o sudoku em:"
+surface_linha1 = font_text_vitoria.render(linha1, True, text_vitoria_color)
+surface_linha2 = font_text_vitoria.render(linha2, True, text_vitoria_color)
+rect_linha1 = surface_linha1.get_rect(center=(posicao_x + 220, posicao_y + 20))
+rect_linha2 = surface_linha2.get_rect(center=(posicao_x + 220, posicao_y + 60))
 
-text_time_font = pygame.font.SysFont("Arial", 80)
+text_time_font = pygame.font.SysFont("Fonts/PressStart2P-Regular.ttf", 80)
 
 text_facil_color = (4, 143, 27)
 text_facil = "FÁCIL"
-font_text_facil = pygame.font.SysFont("Arial", 35)
+font_text_facil = pygame.font.Font("Fonts/PressStart2P-Regular.ttf", 35)
 text_facil_surface = font_text_facil.render(text_facil, True, text_facil_color)
 text_facil_rect = text_facil_surface.get_rect()
 text_facil_rect.center = (425, 440)
@@ -60,15 +62,23 @@ text_dificil_surface = font_text_facil.render(text_dificil, True, text_dificil_c
 text_dificil_rect = text_dificil_surface.get_rect()
 text_dificil_rect.center = (425, 640)
 
+text_boas_vindas_1 = "Selecione a dificuldade"
+text_boas_vindas_2 = "do SUDOKU:"
+font_text_boas_vindas = pygame.font.Font("Fonts/PressStart2P-Regular.ttf", 23)
 text_boas_vindas_color = (0, 0, 0)
-text_boas_vindas = "Selecione a dificuldade do SUDOKU"
-font_text_boas_vindas = pygame.font.SysFont("Arial", 40)
-text_boas_vindas_surface = font_text_boas_vindas.render(text_boas_vindas, True, text_boas_vindas_color)
-text_boas_vindas_rect = text_boas_vindas_surface.get_rect()
-text_boas_vindas_rect.center = (430, 215)
+text_boas_vindas_1_surface = font_text_boas_vindas.render(text_boas_vindas_1, True, text_boas_vindas_color)
+text_boas_vindas_2_surface = font_text_boas_vindas.render(text_boas_vindas_2, True, text_boas_vindas_color)
+text_boas_vindas_1_rect = text_boas_vindas_1_surface.get_rect(center=(435, 200))
+text_boas_vindas_2_rect = text_boas_vindas_2_surface.get_rect(center=(435, 240))
 
-
-
+text_derrota_1 = "Você errou suas 3 tentativas,"
+text_derrota_2 = "boa sorte na próxima vez"
+font_text_derrota = pygame.font.Font("Fonts/PressStart2P-Regular.ttf", 23)
+text_derrota_color = (247, 5, 5)
+text_derrota_1_surface = font_text_derrota.render(text_derrota_1, True, text_derrota_color)
+text_derrota_2_surface = font_text_derrota.render(text_derrota_2, True, text_derrota_color)
+text_derrota_1_rect = text_derrota_1_surface.get_rect(center=(posicao_x + 220, posicao_y + 20))
+text_derrota_2_rect = text_derrota_2_surface.get_rect(center=(posicao_x + 220, posicao_y + 60))
 
 numeros_removidos = 0
 
@@ -94,6 +104,11 @@ apagar_matriz = False
 
 var_aux = 10
 
+vidas = 3
+def desenhar_vidas_sprite(janela, vidas, coracao):
+    for i in range(vidas):
+        janela.blit(coracao, (20 + i * 40, 20))
+
 imagem_fundo = pygame.image.load("Assets/Tabuleiro.png")
 numero_1 = pygame.image.load("Assets/Numero_1-Photoroom.jpg")
 numero_1 = pygame.transform.scale(numero_1, (55, 55))
@@ -114,13 +129,18 @@ numero_8 = pygame.transform.scale(numero_8, (55, 55))
 numero_9 = pygame.image.load("Assets/Numero_9-Photoroom.jpg")
 numero_9 = pygame.transform.scale(numero_9, (55, 55))
 janela_fundo_vitoria = pygame.image.load("Assets/Janela Fundo Vitoria.jpg")
-janela_fundo_vitoria = pygame.transform.scale(janela_fundo_vitoria, (450, 200))
+janela_fundo_vitoria = pygame.transform.scale(janela_fundo_vitoria, (750, 200))
 botao_fundo_menu = pygame.image.load("Assets/Janela Fundo Vitoria.jpg")
 botao_fundo_menu = pygame.transform.scale(janela_fundo_vitoria, (300, 75))
 quadrado_menu = pygame.image.load("Assets/Janela Fundo Vitoria.jpg")
 quadrado_menu = pygame.transform.scale(janela_fundo_vitoria, (600, 150))
 quadrado_selecao = pygame.image.load("Assets/New Piskel (1).png")
 quadrado_selecao = pygame.transform.scale(quadrado_selecao, (75, 75))
+coracao = pygame.image.load("Assets/Coração.png").convert_alpha()
+coracao = pygame.transform.scale(coracao, (40, 40))
+
+
+
 
 Sudoku_playground = [[0 for _ in range(9)] for _ in range(9)]
 
@@ -238,6 +258,8 @@ while loop:
                         else:
                             print("Sudoku Incompleto")
                             sudoku_correto = False
+                            vidas -= 1
+                            print(vidas)
                         precisa_redesenhar = True
 
             tempo_atual = time.time()
@@ -250,6 +272,7 @@ while loop:
 
 
             janela.blit(imagem_fundo, (0, 0))
+            desenhar_vidas_sprite(janela, vidas, coracao)
 
             numero_imagens = {
                 1: numero_1,
@@ -273,22 +296,29 @@ while loop:
                     janela.blit(text_2_surface, text_2_rect)
                     sudoku_correto = None
                 elif sudoku_correto is True:
-                    janela.blit(janela_fundo_vitoria, (posicao_x, posicao_y))
-                    janela.blit(text_vitoria_surface, text_vitoria_rect)
+                    janela.blit(janela_fundo_vitoria, (posicao_x - 150 , posicao_y - 25))
+                    janela.blit(surface_linha1, rect_linha1)
+                    janela.blit(surface_linha2, rect_linha2)
                     text_time = f"{minutos:02d}:{segundos:02d}"
                     text_time_surface = text_time_font.render(text_time, True, text_color)
                     text_time_rect = text_time_surface.get_rect()
                     text_time_rect.center = (posicao_x + 220, posicao_y + 110)
                     janela.blit(text_time_surface, text_time_rect)
                     jogo_finalizado = True
-                if pressionado:
+                if pressionado and Sudoku_playground[linha_selecionada][coluna_selecionada] != numeros_bloqueados[linha_selecionada][coluna_selecionada] :
                     janela.blit(quadrado_selecao, (Matrizes.posicoes_x[coluna_selecionada] - 10, Matrizes.posicoes_y[linha_selecionada] - 10))
-
+                if vidas <= 0:
+                    janela.blit(janela_fundo_vitoria, (posicao_x - 150, posicao_y - 50))
+                    janela.blit(text_derrota_1_surface, text_derrota_1_rect)
+                    janela.blit(text_derrota_2_surface, text_derrota_2_rect)
+                    jogo_finalizado = True
                 pygame.display.update()
                 precisa_redesenhar = False
                 pressionado = False
+
         else:
             menu = pygame.display.set_mode((x, y))
+            posicao_click_x, posicao_click_y = pygame.mouse.get_pos()
             janela.blit(botao_fundo_menu,(275, 400))
             janela.blit(botao_fundo_menu, (275, 500))
             janela.blit(botao_fundo_menu, (275, 600))
@@ -296,8 +326,8 @@ while loop:
             janela.blit(text_facil_surface, text_facil_rect)
             janela.blit(text_medio_surface, text_medio_rect)
             janela.blit(text_dificil_surface,text_dificil_rect)
-            janela.blit(text_boas_vindas_surface, text_boas_vindas_rect)
-            posicao_click_x, posicao_click_y = pygame.mouse.get_pos()
+            janela.blit(text_boas_vindas_1_surface, text_boas_vindas_1_rect)
+            janela.blit(text_boas_vindas_2_surface, text_boas_vindas_2_rect)
             if 280 < posicao_click_x < 570:
                 if  400 < posicao_click_y < 480:
                     #facil
@@ -315,7 +345,5 @@ while loop:
                     jogo_rodando = True
                     apagar_matriz = True
             pygame.display.update()
-
-# teste
     clock.tick(60)
 
