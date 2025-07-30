@@ -6,6 +6,7 @@ import Matrizes
 import time
 import random
 pygame.init()
+pygame.mixer.init()
 clock = pygame.time.Clock()
 pygame.display.set_caption('Sudoku')
 tempo_inicial = time.time()
@@ -80,8 +81,12 @@ text_derrota_2_surface = font_text_derrota.render(text_derrota_2, True, text_der
 text_derrota_1_rect = text_derrota_1_surface.get_rect(center=(posicao_x + 220, posicao_y + 20))
 text_derrota_2_rect = text_derrota_2_surface.get_rect(center=(posicao_x + 220, posicao_y + 60))
 
-numeros_removidos = 0
+som_click = pygame.mixer.Sound("Sounds/AUDIODECLICK.mp3")
+som_vitoria = pygame.mixer.Sound("Sounds/AUDIOVITORIA.mp3")
+som_erro = pygame.mixer.Sound("Sounds/SOMERRADO.mp3")
+som_derrota = pygame.mixer.Sound("Sounds/TUQUERISSOMESMO.mp3")
 
+numeros_removidos = 0
 
 pos_x_player = 430
 pos_y_player = 400
@@ -135,7 +140,7 @@ botao_fundo_menu = pygame.transform.scale(janela_fundo_vitoria, (300, 75))
 quadrado_menu = pygame.image.load("Assets/Janela Fundo Vitoria.jpg")
 quadrado_menu = pygame.transform.scale(janela_fundo_vitoria, (600, 150))
 quadrado_selecao = pygame.image.load("Assets/New Piskel (1).png")
-quadrado_selecao = pygame.transform.scale(quadrado_selecao, (75, 75))
+quadrado_selecao = pygame.transform.scale(quadrado_selecao, (72, 72))
 coracao = pygame.image.load("Assets/Coração.png").convert_alpha()
 coracao = pygame.transform.scale(coracao, (40, 40))
 
@@ -234,6 +239,7 @@ while loop:
                 apagar_matriz = False
             if not(jogo_finalizado):
                 if events.type == pygame.MOUSEBUTTONDOWN:
+                    som_click.play()
                     posicao_click_x, posicao_click_y = pygame.mouse.get_pos()
                     if 140 < posicao_click_x < 760 and 230 < posicao_click_y < 840:
                         coluna_selecionada = (posicao_click_x - 140) // 70
@@ -256,6 +262,7 @@ while loop:
                             print("Sudoku Resolvido")
                             sudoku_correto = True
                         else:
+                            som_erro.play()
                             print("Sudoku Incompleto")
                             sudoku_correto = False
                             vidas -= 1
@@ -296,6 +303,7 @@ while loop:
                     janela.blit(text_2_surface, text_2_rect)
                     sudoku_correto = None
                 elif sudoku_correto is True:
+                    som_vitoria.play()
                     janela.blit(janela_fundo_vitoria, (posicao_x - 150 , posicao_y - 25))
                     janela.blit(surface_linha1, rect_linha1)
                     janela.blit(surface_linha2, rect_linha2)
@@ -306,8 +314,9 @@ while loop:
                     janela.blit(text_time_surface, text_time_rect)
                     jogo_finalizado = True
                 if pressionado and Sudoku_playground[linha_selecionada][coluna_selecionada] != numeros_bloqueados[linha_selecionada][coluna_selecionada] :
-                    janela.blit(quadrado_selecao, (Matrizes.posicoes_x[coluna_selecionada] - 10, Matrizes.posicoes_y[linha_selecionada] - 10))
+                    janela.blit(quadrado_selecao, (Matrizes.posicoes_x[coluna_selecionada] - 8, Matrizes.posicoes_y[linha_selecionada] - 9))
                 if vidas <= 0:
+                    som_derrota.play()
                     janela.blit(janela_fundo_vitoria, (posicao_x - 150, posicao_y - 50))
                     janela.blit(text_derrota_1_surface, text_derrota_1_rect)
                     janela.blit(text_derrota_2_surface, text_derrota_2_rect)
