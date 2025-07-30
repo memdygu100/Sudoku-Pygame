@@ -119,8 +119,8 @@ botao_fundo_menu = pygame.image.load("Assets/Janela Fundo Vitoria.jpg")
 botao_fundo_menu = pygame.transform.scale(janela_fundo_vitoria, (300, 75))
 quadrado_menu = pygame.image.load("Assets/Janela Fundo Vitoria.jpg")
 quadrado_menu = pygame.transform.scale(janela_fundo_vitoria, (600, 150))
-quadrado_selecao = pygame.image.load("Assets/TIRAR _FUNDO 2-Photoroom.png")
-quadrado_selecao = pygame.transform.scale(quadrado_selecao, (93, 97))
+quadrado_selecao = pygame.image.load("Assets/New Piskel (1).png")
+quadrado_selecao = pygame.transform.scale(quadrado_selecao, (75, 75))
 
 Sudoku_playground = [[0 for _ in range(9)] for _ in range(9)]
 
@@ -282,7 +282,7 @@ while loop:
                     janela.blit(text_time_surface, text_time_rect)
                     jogo_finalizado = True
                 if pressionado:
-                    janela.blit(quadrado_selecao, (Matrizes.posicoes_x[coluna_selecionada] - 15, Matrizes.posicoes_y[linha_selecionada] - 19))
+                    janela.blit(quadrado_selecao, (Matrizes.posicoes_x[coluna_selecionada] - 10, Matrizes.posicoes_y[linha_selecionada] - 10))
 
                 pygame.display.update()
                 precisa_redesenhar = False
