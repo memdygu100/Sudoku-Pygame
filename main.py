@@ -268,7 +268,12 @@ while loop:
                             vidas -= 1
                             print(vidas)
                         precisa_redesenhar = True
-
+            if events.type == pygame.KEYDOWN:
+                if events.key == pygame.K_ESCAPE:
+                    jogo_rodando = False
+                    preencher_tabuleiro()
+                    jogo_finalizado = False
+                    vidas = 3
             tempo_atual = time.time()
             tempo_decorrido = int(tempo_atual - tempo_inicial)
             minutos = tempo_decorrido // 60
