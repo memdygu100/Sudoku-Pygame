@@ -274,6 +274,8 @@ while loop:
                     preencher_tabuleiro()
                     jogo_finalizado = False
                     vidas = 3
+                    if sudoku_correto == True:
+                        sudoku_correto = False
             tempo_atual = time.time()
             tempo_decorrido = int(tempo_atual - tempo_inicial)
             minutos = tempo_decorrido // 60
