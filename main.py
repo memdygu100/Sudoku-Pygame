@@ -143,7 +143,8 @@ quadrado_selecao = pygame.image.load("Assets/New Piskel (1).png")
 quadrado_selecao = pygame.transform.scale(quadrado_selecao, (72, 72))
 coracao = pygame.image.load("Assets/Coração.png").convert_alpha()
 coracao = pygame.transform.scale(coracao, (40, 40))
-
+fundo_menu = pygame.image.load("Assets/fundo para sudok.jpg")
+fundo_menu = pygame.transform.scale(fundo_menu, (x, y))
 
 
 
@@ -302,8 +303,13 @@ while loop:
             if precisa_redesenhar:
                 for i, linha in enumerate(Sudoku_playground):
                     for j, valor in enumerate(linha):
-                        if valor in numero_imagens:
-                            janela.blit(numero_imagens[valor], (Matrizes.posicoes_x[j], Matrizes.posicoes_y[i]))
+                        if valor != 0 and valor in numero_imagens:
+                            imagem_azul = numero_imagens[valor].copy()
+                            imagem_azul.fill((4, 4, 224, 0), special_flags=pygame.BLEND_RGBA_ADD)
+                            if Sudoku_playground[i][j] == numeros_bloqueados[i][j]:
+                                janela.blit(imagem_azul, (Matrizes.posicoes_x[j], Matrizes.posicoes_y[i]))
+                            else:
+                                janela.blit(numero_imagens[valor], (Matrizes.posicoes_x[j], Matrizes.posicoes_y[i]))
                 if Sudoku_playground[linha_selecionada][coluna_selecionada] == numeros_bloqueados[linha_selecionada][coluna_selecionada]:
                     janela.blit(text_surface, text_rect)
                 elif sudoku_correto is False:
@@ -335,6 +341,7 @@ while loop:
         else:
             menu = pygame.display.set_mode((x, y))
             posicao_click_x, posicao_click_y = pygame.mouse.get_pos()
+            janela.blit(fundo_menu, (0, 0))
             janela.blit(botao_fundo_menu,(275, 400))
             janela.blit(botao_fundo_menu, (275, 500))
             janela.blit(botao_fundo_menu, (275, 600))
@@ -362,4 +369,3 @@ while loop:
                     apagar_matriz = True
             pygame.display.update()
     clock.tick(60)
-
