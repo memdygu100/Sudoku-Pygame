@@ -110,6 +110,9 @@ apagar_matriz = False
 var_aux = 10
 
 vidas = 3
+
+posicao_click_x, posicao_click_y = 0, 0
+
 def desenhar_vidas_sprite(janela, vidas, coracao):
     for i in range(vidas):
         janela.blit(coracao, (20 + i * 40, 20))
@@ -275,6 +278,7 @@ while loop:
                     preencher_tabuleiro()
                     jogo_finalizado = False
                     vidas = 3
+                    posicao_click_x, posicao_click_y = 0, 0
                     if sudoku_correto == True:
                         sudoku_correto = False
             tempo_atual = time.time()
@@ -310,9 +314,7 @@ while loop:
                                 janela.blit(imagem_azul, (Matrizes.posicoes_x[j], Matrizes.posicoes_y[i]))
                             else:
                                 janela.blit(numero_imagens[valor], (Matrizes.posicoes_x[j], Matrizes.posicoes_y[i]))
-                if Sudoku_playground[linha_selecionada][coluna_selecionada] == numeros_bloqueados[linha_selecionada][coluna_selecionada]:
-                    janela.blit(text_surface, text_rect)
-                elif sudoku_correto is False:
+                if sudoku_correto is False:
                     janela.blit(text_2_surface, text_2_rect)
                     sudoku_correto = None
                 elif sudoku_correto is True:
@@ -326,8 +328,11 @@ while loop:
                     text_time_rect.center = (posicao_x + 220, posicao_y + 110)
                     janela.blit(text_time_surface, text_time_rect)
                     jogo_finalizado = True
-                if pressionado and Sudoku_playground[linha_selecionada][coluna_selecionada] != numeros_bloqueados[linha_selecionada][coluna_selecionada] :
-                    janela.blit(quadrado_selecao, (Matrizes.posicoes_x[coluna_selecionada] - 8, Matrizes.posicoes_y[linha_selecionada] - 9))
+                if linha_selecionada != None and coluna_selecionada != None:
+                    if Sudoku_playground[linha_selecionada][coluna_selecionada] == numeros_bloqueados[linha_selecionada][coluna_selecionada]:
+                        janela.blit(text_surface, text_rect)
+                    if pressionado and Sudoku_playground[linha_selecionada][coluna_selecionada] != numeros_bloqueados[linha_selecionada][coluna_selecionada] :
+                        janela.blit(quadrado_selecao, (Matrizes.posicoes_x[coluna_selecionada] - 8, Matrizes.posicoes_y[linha_selecionada] - 9))
                 if vidas <= 0:
                     som_derrota.play()
                     janela.blit(janela_fundo_vitoria, (posicao_x - 150, posicao_y - 50))
@@ -339,8 +344,6 @@ while loop:
                 pressionado = False
 
         else:
-            menu = pygame.display.set_mode((x, y))
-            posicao_click_x, posicao_click_y = pygame.mouse.get_pos()
             janela.blit(fundo_menu, (0, 0))
             janela.blit(botao_fundo_menu,(275, 400))
             janela.blit(botao_fundo_menu, (275, 500))
@@ -351,21 +354,25 @@ while loop:
             janela.blit(text_dificil_surface,text_dificil_rect)
             janela.blit(text_boas_vindas_1_surface, text_boas_vindas_1_rect)
             janela.blit(text_boas_vindas_2_surface, text_boas_vindas_2_rect)
-            if 280 < posicao_click_x < 570:
-                if  400 < posicao_click_y < 480:
-                    #facil
-                    numeros_removidos = 4
-                    jogo_rodando = True
-                    apagar_matriz = True
-                elif 500 < posicao_click_y < 570:
-                    #medio
-                    numeros_removidos = 5
-                    jogo_rodando = True
-                    apagar_matriz = True
-                elif 600 < posicao_click_y < 670:
-                    #dificil
-                    numeros_removidos = 6
-                    jogo_rodando = True
-                    apagar_matriz = True
+            if events.type == pygame.MOUSEBUTTONDOWN:
+                posicao_click_x, posicao_click_y = events.pos
+            if 280 < posicao_click_x < 570 and 400 < posicao_click_y < 480:
+                # fácil
+                numeros_removidos = 4
+                jogo_rodando = True
+                apagar_matriz = True
+                precisa_redesenhar = True
+            elif 280 < posicao_click_x < 570 and 500 < posicao_click_y < 570:
+                # médio
+                numeros_removidos = 5
+                jogo_rodando = True
+                apagar_matriz = True
+                precisa_redesenhar = True
+            elif 280 < posicao_click_x < 570 and 600 < posicao_click_y < 670:
+                # difícil
+                numeros_removidos = 6
+                jogo_rodando = True
+                apagar_matriz = True
+                precisa_redesenhar = True
             pygame.display.update()
     clock.tick(60)
