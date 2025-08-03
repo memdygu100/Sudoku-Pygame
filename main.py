@@ -20,6 +20,9 @@ altura_janela_vitoria = 200
 posicao_x = (x - largura_janela_vitoria) // 2
 posicao_y = (y - altura_janela_vitoria) // 2
 
+pygame.mixer.music.load("Sounds/Musica de Fundo.mp3")
+pygame.mixer.music.play(-1)
+pygame.mixer.music.set_volume(0.5)
 
 text_color = (0, 0, 0)
 font = pygame.font.Font("Fonts/PressStart2P-Regular.ttf", 25)
@@ -113,9 +116,6 @@ vidas = 3
 
 posicao_click_x, posicao_click_y = 0, 0
 
-def desenhar_vidas_sprite(janela, vidas, coracao):
-    for i in range(vidas):
-        janela.blit(coracao, (20 + i * 40, 20))
 
 imagem_fundo = pygame.image.load("Assets/Tabuleiro.png")
 numero_1 = pygame.image.load("Assets/Numero_1-Photoroom.jpg")
@@ -149,6 +149,9 @@ coracao = pygame.transform.scale(coracao, (40, 40))
 fundo_menu = pygame.image.load("Assets/fundo para sudok.jpg")
 fundo_menu = pygame.transform.scale(fundo_menu, (x, y))
 
+def desenhar_vidas_sprite(janela, vidas, coracao):
+    for i in range(vidas):
+        janela.blit(coracao, (20 + i * 40, 20))
 
 
 Sudoku_playground = [[0 for _ in range(9)] for _ in range(9)]
@@ -248,7 +251,6 @@ while loop:
                     if 140 < posicao_click_x < 760 and 230 < posicao_click_y < 840:
                         coluna_selecionada = (posicao_click_x - 140) // 70
                         linha_selecionada = (posicao_click_y - 230) // 70
-                        print(f"Célula clicada: [{linha_selecionada}][{coluna_selecionada}]")
                         precisa_redesenhar = True
                         pressionado = True
                 elif events.type == pygame.KEYDOWN:
@@ -263,14 +265,11 @@ while loop:
                                 precisa_redesenhar = True
                     if events.key == pygame.K_RETURN:
                         if verificacao():
-                            print("Sudoku Resolvido")
                             sudoku_correto = True
                         else:
                             som_erro.play()
-                            print("Sudoku Incompleto")
                             sudoku_correto = False
                             vidas -= 1
-                            print(vidas)
                         precisa_redesenhar = True
             if events.type == pygame.KEYDOWN:
                 if events.key == pygame.K_ESCAPE:
